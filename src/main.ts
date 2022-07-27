@@ -11,8 +11,8 @@ interface MobileMenuConfig {
   isOpen: boolean;
 }
 const mobileMenuConfig: MobileMenuConfig = {
-  centerTranslate: Math.round(36 / 2),
-  edgeTranslate: 8 + 4,
+  centerTranslate: Math.round(32 / 2),
+  edgeTranslate: 6 + 4,
   isOpen: false,
 };
 
