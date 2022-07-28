@@ -21,23 +21,42 @@ export function initializeMobileMenu() {
     (hamburgerBottom as HTMLDivElement).style.transform = `translateY(-${translate}px) rotate(${rotate}deg)`;
   }
 
-  // ---- ToggleNavVisibility ---- //
-  const toggleNavVisibilityItems = [primaryNav, ...primaryNavItems];
-  const primaryNavItemsMaxDelay =
-    (toggleNavVisibilityItems.length - 2) * mobileMenuConfig.primaryNavItemsDelay +
-    mobileMenuConfig.primaryNavAnimationDuration;
+  interface ToggleElementClass {
+    element: Element;
+    isOpen: MobileMenuConfig["isOpen"];
+  }
 
-  function toggleNavVisibility({ isOpen, primaryNavAnimationDuration, primaryNavItemsDelay }: MobileMenuConfig) {
-    const opacity = isOpen ? "1" : "0";
-    const xPosition = isOpen ? toggleNavVisibilityItems[0].clientWidth : 0;
-    let delay = isOpen ? 0 : primaryNavItemsMaxDelay;
-    for (let index = 0; index < toggleNavVisibilityItems.length; index++) {
+  // ---- ToggleNavItemsOpacityClass ---- //
+  function toggleNavTranslateXClass({ element, isOpen }: ToggleElementClass) {
+    isOpen
+      ? element.classList.replace("translate-x-0", "-translate-x-full")
+      : element.classList.replace("-translate-x-full", "translate-x-0");
+  }
+
+  // ---- ToggleNavItemsOpacityClass ---- //
+
+  function toggleNavItemsOpacityClass({ element, isOpen }: ToggleElementClass) {
+    isOpen
+      ? element.classList.replace("opacity-0", "opacity-100")
+      : element.classList.replace("opacity-100", "opacity-0");
+  }
+
+  // ---- ToggleNavVisibility ---- //
+  const { primaryNavAnimationDuration, primaryNavItemsDelay } = mobileMenuConfig;
+  const visibilityItems = [primaryNav, ...primaryNavItems];
+  const maxDelay = (visibilityItems.length - 2) * primaryNavItemsDelay + primaryNavAnimationDuration;
+
+  function toggleNavVisibility(isOpen: MobileMenuConfig["isOpen"]) {
+    let delay = isOpen ? 0 : maxDelay;
+    for (let index = 0; index < visibilityItems.length; index++) {
+      // Apply delay
       setTimeout(() => {
         index === 0
-          ? ((toggleNavVisibilityItems[index] as HTMLElement).style.transform = `translateX(-${xPosition}px)`)
-          : ((toggleNavVisibilityItems[index] as HTMLElement).style.opacity = opacity);
+          ? toggleNavTranslateXClass({ element: visibilityItems[index], isOpen })
+          : toggleNavItemsOpacityClass({ element: visibilityItems[index], isOpen });
       }, delay);
-      if (index === toggleNavVisibilityItems.length - 1) return;
+      if (index === visibilityItems.length - 1) return;
+      // Update delay
       if (isOpen) {
         delay += index === 0 ? primaryNavAnimationDuration : primaryNavItemsDelay;
       } else {
@@ -48,7 +67,9 @@ export function initializeMobileMenu() {
 
   // ---- Toggle document overflowY ---- //
   function toggleDocumentOverflowY(isOpen: MobileMenuConfig["isOpen"]) {
-    document.documentElement.style.overflowY = isOpen ? "hidden" : "";
+    isOpen
+      ? document.documentElement.classList.replace("overflow-y-auto", "overflow-y-hidden")
+      : document.documentElement.classList.replace("overflow-y-hidden", "overflow-y-auto");
   }
 
   // ---- ToggleMobileMenu ---- //
@@ -60,7 +81,7 @@ export function initializeMobileMenu() {
     // Animate hamburger
     toggleHamburger(mobileMenuConfig);
     // Show/hide primary navigation
-    toggleNavVisibility(mobileMenuConfig);
+    toggleNavVisibility(mobileMenuConfig.isOpen);
   }
 
   // ---- HamburgerBtn click listener ---- //
