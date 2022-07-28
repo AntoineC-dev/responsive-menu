@@ -6,9 +6,11 @@ import {
   mobileMenuConfig,
   MobileMenuConfig,
   primaryNav,
+  primaryNavItems,
 } from "../config";
 
 export function initializeMobileMenu() {
+  // ---- ToggleHamburger ---- //
   function toggleHamburger({ hamburgerTranslate, isOpen }: MobileMenuConfig) {
     // Transform and show/hide center
     (hamburgerCenter as HTMLDivElement).style.opacity = isOpen ? "0" : "1";
@@ -19,23 +21,41 @@ export function initializeMobileMenu() {
     (hamburgerBottom as HTMLDivElement).style.transform = `translateY(-${translate}px) rotate(${rotate}deg)`;
   }
 
-  interface ToggleNavVisibility {
-    element: Element;
-    isOpen: MobileMenuConfig["isOpen"];
+  // ---- ToggleNavVisibility ---- //
+  const toggleNavVisibilityItems = [primaryNav, ...primaryNavItems];
+  const primaryNavItemsMaxDelay =
+    (toggleNavVisibilityItems.length - 2) * mobileMenuConfig.primaryNavItemsDelay +
+    mobileMenuConfig.primaryNavAnimationDuration;
+
+  function toggleNavVisibility({ isOpen, primaryNavAnimationDuration, primaryNavItemsDelay }: MobileMenuConfig) {
+    const opacity = isOpen ? "1" : "0";
+    const xPosition = isOpen ? toggleNavVisibilityItems[0].clientWidth : 0;
+    let delay = isOpen ? 0 : primaryNavItemsMaxDelay;
+    for (let index = 0; index < toggleNavVisibilityItems.length; index++) {
+      setTimeout(() => {
+        index === 0
+          ? ((toggleNavVisibilityItems[index] as HTMLElement).style.transform = `translateX(-${xPosition}px)`)
+          : ((toggleNavVisibilityItems[index] as HTMLElement).style.opacity = opacity);
+      }, delay);
+      if (index === toggleNavVisibilityItems.length - 1) return;
+      if (isOpen) {
+        delay += index === 0 ? primaryNavAnimationDuration : primaryNavItemsDelay;
+      } else {
+        delay -= index === 0 ? primaryNavAnimationDuration : primaryNavItemsDelay;
+      }
+    }
   }
 
-  function toggleNavVisibility({ element, isOpen }: ToggleNavVisibility) {
-    (element as HTMLDivElement).style.transform = `translateX(-${isOpen ? element.clientWidth : 0}px)`;
-  }
-
+  // ---- ToggleMobileMenu ---- //
   function toggleMobileMenu() {
     // Toggle isOpen
     mobileMenuConfig.isOpen = !mobileMenuConfig.isOpen;
     // Animate hamburger
     toggleHamburger(mobileMenuConfig);
     // Show/hide primary navigation
-    toggleNavVisibility({ element: primaryNav, isOpen: mobileMenuConfig.isOpen });
+    toggleNavVisibility(mobileMenuConfig);
   }
 
+  // ---- HamburgerBtn click listener ---- //
   hamburgerBtn.addEventListener("click", toggleMobileMenu);
 }
