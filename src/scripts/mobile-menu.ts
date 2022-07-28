@@ -46,10 +46,17 @@ export function initializeMobileMenu() {
     }
   }
 
+  // ---- Toggle document overflowY ---- //
+  function toggleDocumentOverflowY(isOpen: MobileMenuConfig["isOpen"]) {
+    document.documentElement.style.overflowY = isOpen ? "hidden" : "";
+  }
+
   // ---- ToggleMobileMenu ---- //
   function toggleMobileMenu() {
     // Toggle isOpen
     mobileMenuConfig.isOpen = !mobileMenuConfig.isOpen;
+    // Toggle document overflowY
+    toggleDocumentOverflowY(mobileMenuConfig.isOpen);
     // Animate hamburger
     toggleHamburger(mobileMenuConfig);
     // Show/hide primary navigation
