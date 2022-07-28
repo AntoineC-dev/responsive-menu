@@ -5,3 +5,4 @@ export const hamburgerCenter = document.getElementById("hamburger-center") as El
 export const hamburgerBottom = document.getElementById("hamburger-bottom") as Element;
 // Nav
 export const primaryNav = document.getElementById("primary-nav") as Element;
+export const primaryNavItems = Array.from(document.querySelectorAll("#primary-nav ul li"));
