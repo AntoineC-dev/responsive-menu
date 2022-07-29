@@ -8,7 +8,7 @@
   </head>
   <body class="bg-zinc-700 text-zinc-50 overflow-x-hidden">
     <header class="fixed top-0 left-0 w-full z-50 bg-zinc-800">
-      <div class="container py-4 flex justify-between items-center relative">
+      <div class="container py-4 flex justify-between items-center">
         <!-- Logo:start-->
         <a aria-label="Go to homepage" href="#">
           <svg class="h-9 sm:h-10" viewBox="0 0 140 30">
@@ -92,13 +92,14 @@
         <nav
           id="primary-nav"
           aria-label="Navigation"
-          class="fixed sm:static top-[68px] translate-x-0 bottom-0 left-full sm:left-0 w-full sm:w-auto z-50 border-t-2 sm:border-t-0 border-zinc-700 bg-zinc-800 transition-transform"
+          class="fixed sm:static top-[68px] translate-x-0 sm:translate-x-0 bottom-0 left-full sm:left-0 w-full sm:w-auto z-50 border-t-2 sm:border-t-0 border-zinc-700 bg-zinc-800 transition-transform"
         >
           <ul class="h-full sm:h-auto flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-4">
-            <li
-              class="flex w-5/6 sm:w-auto border-2 sm:border-0 rounded-md transition-opacity opacity-0 sm:opacity-100"
-            >
-              <a href="#" class="grow flex justify-center items-center gap-4 p-4 sm:p-0 sm:passing-underline">
+            <li class="flex w-5/6 sm:w-auto transition-opacity opacity-0 sm:opacity-100">
+              <a
+                href="#"
+                class="grow flex justify-center items-center gap-4 p-4 sm:p-0 border-2 sm:border-0 rounded-md passing-underline [@media(hover:hover)]:before:scale-x-100"
+              >
                 <svg class="sm:hidden w-8" viewBox="0 0 256 256">
                   <rect width="256" height="256" fill="none"></rect>
                   <path
@@ -113,10 +114,11 @@
                 <span class="text-xl sm:text-base font-bold sm:font-semibold tracking-wide">Acceuil</span>
               </a>
             </li>
-            <li
-              class="flex w-5/6 sm:w-auto border-2 sm:border-0 rounded-md transition-opacity opacity-0 sm:opacity-100"
-            >
-              <a href="#" class="grow flex justify-center items-center gap-4 p-4 sm:p-0 sm:passing-underline">
+            <li class="flex w-5/6 sm:w-auto transition-opacity opacity-0 sm:opacity-100">
+              <a
+                href="#"
+                class="grow flex justify-center items-center gap-4 p-4 sm:p-0 border-2 sm:border-0 rounded-md passing-underline"
+              >
                 <svg class="sm:hidden w-8" viewBox="0 0 256 256">
                   <rect width="256" height="256" fill="none"></rect>
                   <path
@@ -159,10 +161,11 @@
                 <span class="text-xl sm:text-base font-bold sm:font-semibold tracking-wide">Produits</span>
               </a>
             </li>
-            <li
-              class="flex w-5/6 sm:w-auto border-2 sm:border-0 rounded-md transition-opacity opacity-0 sm:opacity-100"
-            >
-              <a href="#" class="grow flex justify-center items-center gap-4 p-4 sm:p-0 sm:passing-underline">
+            <li class="flex w-5/6 sm:w-auto transition-opacity opacity-0 sm:opacity-100">
+              <a
+                href="#"
+                class="grow flex justify-center items-center gap-4 p-4 sm:p-0 border-2 sm:border-0 rounded-md passing-underline"
+              >
                 <svg class="sm:hidden w-8" viewBox="0 0 256 256">
                   <rect width="256" height="256" fill="none"></rect>
                   <path
@@ -185,12 +188,10 @@
                 <span class="text-xl sm:text-base font-bold sm:font-semibold tracking-wide">Contact</span>
               </a>
             </li>
-            <li
-              class="flex w-5/6 sm:w-auto border-2 sm:border-0 rounded-md transition-opacity opacity-0 sm:opacity-100 overflow-hidden"
-            >
+            <li class="flex w-5/6 sm:w-auto transition-opacity opacity-0 sm:opacity-100 overflow-hidden">
               <a
                 href="#"
-                class="grow flex justify-center items-center gap-4 p-4 sm:py-2 bg-zinc-50 text-zinc-800 hover:bg-zinc-300 transition-colors"
+                class="grow flex justify-center items-center gap-4 p-4 sm:py-2 border-2 sm:border-0 rounded-md bg-zinc-50 text-zinc-800 hover:bg-zinc-300 transition-colors"
               >
                 <svg class="sm:hidden w-8" viewBox="0 0 256 256">
                   <rect width="256" height="256" fill="none"></rect>
